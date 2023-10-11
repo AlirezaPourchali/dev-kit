@@ -56,3 +56,32 @@ item_3 = {
 }
 
 mycollection.insert_many([item_2,item_3])
+
+
+# how to get your data
+
+var = mycollection.find()
+
+for i in var:
+    print (i , "\n")
+
+
+# get specific part of the document
+
+for i in var:
+    print(i['item_name'])
+
+# find a document with specific part
+
+var = mycollection.find({"_id":"U1IT00002"})
+
+for i in var:
+    print(i)
+
+# close connection
+
+client.close()    
+
+
+
+

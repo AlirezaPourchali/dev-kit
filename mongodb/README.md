@@ -6,7 +6,8 @@ Install mongodb-sharded on k8s with the help of bitnami chart:
 helm upgrade mongoshard --install bitnami/mongodb-sharded \
 --set shards=3,global.imageRegistry="docker.iranrepo.ir" \
 --set configsvr.replicaCount="3" \
---set shardsvr.dataNode.replicaCount="2",mongos.replicaCount=2
+--set shardsvr.dataNode.replicaCount="2",mongos.replicaCount=2 \
+--version 7.0.2
 ```
 
 mongodb sharded structure is made of mainly 3 parts:

@@ -28,7 +28,7 @@ for i in range(len(a)):
 
 from sqlalchemy import inspect
 
-inspect(<engine_name>).has_table("<table_name>") #==> true or false
+inspect(engine).has_table("<table_name>") #==> true or false
 
 
 # create uuid

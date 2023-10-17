@@ -56,7 +56,7 @@ mariadb.commit() #==> if you dont commit the data will not be inserted and after
 
 ## select from table where email = email
 test = "email"
-mariadb.execute(text(f"select * from reza where email = \"{test}\"")).fetchall() #==> 2d array
+mariadb.execute(text(f"select * from test where email = \"{test}\"")).fetchall() #==> 2d array
 
 
 ## CLOSE THE CONNECTION AFTER YOU ARE DONE 

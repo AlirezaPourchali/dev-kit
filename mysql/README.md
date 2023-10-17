@@ -5,8 +5,11 @@ A quick setup for mysql master/slave deployment with a bitnami chart for only ex
 ```
 helm repo add bitnami https://charts.bitnami.com/bitnami    
 
-helm install my-mysql bitnami/mysql --set image.registry="docker.iranrepo.ir" --set architecture="replication" --set secondary.replicaCount=2 --version 9.12.5
-
+helm install my-mysql bitnami/mysql \ 
+--set image.registry="docker.iranrepo.ir" \ 
+--set architecture="replication" \
+--set secondary.replicaCount=2 \ 
+--version 9.12.5
 ```
 
 It will deploy 1 primary instance of mysql and two secondary instances which replicate from the master instance.    

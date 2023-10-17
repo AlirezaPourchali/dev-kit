@@ -1,22 +1,15 @@
-# MariaDB - galera depoyment
+# Mysql - master/slave depoyment
 
-MariaDB Galera Cluster is a virtually synchronous multi-primary cluster for MariaDB.
-
-Its an Active-Active setup and every replica can accept read/write connections     
-You can also join new nodes to the cluster as well.    
-
-This is a quick setup for a galera deployment with bitnami chart for only experiment purposes and it is not advised to use bitnami when you dont know how it works and evolves.  
+A quick setup for mysql master/slave deployment with a bitnami chart for only experiment purposes and it is not advised to use bitnami when you dont know how it works and evolves.     
 
 ```
 helm repo add bitnami https://charts.bitnami.com/bitnami    
 
-helm install my-mariadb-galera bitnami/mariadb-galera \
---set image.registry="docker.iranrepo.ir" \
---set replicaCount=3 \ 
---version 10.0.1
+helm install my-mysql bitnami/mysql --set image.registry="docker.iranrepo.ir" --set architecture="replication" --set secondary.replicaCount=2 --version 9.12.5
 
 ```
 
-It will deploy 3 replicas of mariadb and two services , one headless and the other to loadbalance connections between replicas
+It will deploy 1 primary instance of mysql and two secondary instances which replicate from the master instance.    
+2 service , which is kind of a loadbalancer ( one for primary one for secondary ) , and 2 headless services for them to discover pods.    
 
-Here is a sample python [code](./app.py) for connecting and executing commands in MariaDB
+Here is a sample python [code](./app.py) for connecting and executing commands in MysqlDB

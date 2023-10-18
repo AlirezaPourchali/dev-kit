@@ -5,3 +5,4 @@ Simple python codes for connecting to common db's
 * [kafka](./kafka/)
 * [mariadb](./mariadb/)
 * [mysql](./mysql/)
+* [postgres](./postgres/)

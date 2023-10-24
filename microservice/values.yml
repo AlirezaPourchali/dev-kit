@@ -1,0 +1,205 @@
+# Default values for microservice.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  ## If you use `deployment: false` (meaning you are using StatefulSet) set this to 1 or 0 
+  replicaCount: 1
+  environment: {}
+   # list of key: value
+   # GLOBAL1: value
+
+## Set this value to true to use Deployment object. 
+## If you need StatefulSet set this to false. 
+deployment: true 
+
+## If you neeed your pod to have the same network as its host,
+## set this to true
+hostNetwork: false
+
+## Set default image, imageTag, and imagePullPolicy.
+image:
+  repository: "docker.iranrepo.ir/nginx"
+  tag: "alpine"
+  pullPolicy: Always
+
+  #replicaCount: 1
+
+# setCommand: true
+# args: "echo 'consuming a message'; sleep 5"
+
+nameOverride: ""
+fullnameOverride: ""
+
+## Pod Labels
+# podLabels: {}
+
+## Optionally specify an imagePullSecret.
+## Secret must be manually created in the namespace.
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+##
+
+#SECOND TIME
+#imagePullSecrets: myRegistrKeySecretName
+
+# FIRST Time Only
+imageCredentials: {} 
+  #registry: https://dockerregistry-
+  #username: admin
+  #password: password
+  # email: tsorage@cetic.be
+
+#serviceAccount: microservice-sa
+createServiceAccount: false
+rbac: false
+
+# Annotation for the Deployment
+annotations: {}
+
+# List of services
+services:
+   - name: web
+     type: ClusterIP
+     specs:
+     - port: 80
+       targetPort: 80
+       name: http
+#targetPort: is the port the container accepts traffic on, 
+#port: is the abstracted Service port, which can be any port other pods use to access the Service
+#https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/#serviceport-v1-core
+
+## Use a secret that you have created to 
+## provide environment variables for the pod.
+## The secret data must be in `key: value` format.
+secretEnv: 
+  enabled: false 
+  secretNames:
+  - secretOne
+  - secretTwo
+
+environment: {}
+#   VAR1: value1
+
+#Probes
+liveness:
+  enabled: false
+  path: /alive
+  port: 8001
+  initialDelaySeconds: 3
+  periodSeconds: 3
+readiness:
+  enabled: false
+  path: /ready
+  port: 8001
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  failureThreshold: 3
+
+
+updateStrategy: {}
+  ## For stateless apps, Default
+  # type: RollingUpdate
+  # rollingUpdate: {}
+
+  ## For stateful apps 
+  ## It is recommended to set `deployment: false` for 
+  ## stateful apps and not use updateStrategy at all 
+  # type: Recreate
+  
+
+  
+volumes:
+  enabled: false
+  pvc:
+    enabled: false
+
+    ## if this is not null the name will be 
+    ## ignored and no pvc will be created  
+    existingClaim: null 
+    name: my-data
+    mountPath: /pv
+    # if subPath is used mountPath must be empty 
+    subPaths:
+    - mountPath: /data
+      subPath: data
+    - mountPath: /var/lib/logs
+      subPath: logs
+    size: 1G
+    class:
+    accessModes:
+      - ReadWriteOnce
+
+
+  configMaps: []
+    # - name: test
+    #   mountPath: /test
+    #   data:
+    #     test.conf: |
+    #       hello
+#          hello2
+
+#    - name: test-from-file
+#      mountPath: /test2
+#      files:
+#        - source: config.conf
+#          destination: application.conf
+#    - name: test-mixed
+#      mountPath: /test3
+#      data:
+#        test2.conf: |
+#          another hello
+#      files:
+#        - source: config.conf
+#          destination: application2.conf
+#    - name: test3
+#      mountPath: /test3/myfilename.conf
+#      subPath: myfilename.conf
+#      data:
+#        myfilename.conf: |
+#          hello
+#          hello2
+
+automountServiceAccountToken: false
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: www.example.com
+      servicePort: 80
+      serviceName: web
+      path: /
+      pathType: Prefix
+  tls: []
+  
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# ASSIGN for HPA
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 200Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 200Mi
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000

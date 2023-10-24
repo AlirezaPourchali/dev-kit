@@ -6,3 +6,4 @@ Simple python codes for connecting to common db's
 * [mariadb](./mariadb/)
 * [mysql](./mysql/)
 * [postgres](./postgres/)
+* [redis](./redis/)

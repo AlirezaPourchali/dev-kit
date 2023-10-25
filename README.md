@@ -7,3 +7,4 @@ Simple python codes for connecting to common db's
 * [mysql](./mysql/)
 * [postgres](./postgres/)
 * [redis](./redis/)
+* [fastapi](./fastapi/)

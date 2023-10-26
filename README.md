@@ -8,5 +8,6 @@ Simple python codes for connecting to common db's
 * [postgres](./postgres/)
 * [redis](./redis/)
 * [fastapi](./fastapi/)
+* [s3-storage](./s3-storage/)
 # lab for testing code
 Apply a pod in your cluster with image `docker.arvancloud.ir/arpjoker/ubuntu` .

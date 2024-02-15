@@ -1,4 +1,4 @@
-# pip install psycopg2 sqlalchemy 
+# pip install psycopg2-binary sqlalchemy 
 # NOTE: DO NOT USE python:alpine IMAGE , it doesnt have the required packages for psycopg2
 # use python:3.10 for example
 from sqlalchemy import create_engine , text
